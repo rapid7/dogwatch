@@ -1,0 +1,23 @@
+require_relative '../lib/dogwatch'
+
+DogWatch.monitor do
+  monitor 'test_alert' do
+    type :metric_alert
+    query 'avg(last_1m):avg:system.cpu.user{region:us-east-1} > 20'
+    message 'A message to include with notifications for this monitor.'\
+            'Email notifications can be sent to specific users by '\
+            'using the same \'@username\' notation as events.'
+
+    tags %w(A list of tags to associate with your monitor)
+
+    options do
+      silenced '*': nil
+      notify_no_data false
+      no_data_timeframe 3
+      timeout_h 99
+      renotify_interval 60
+      escalation_message 'oh snap'
+      include_tags true
+    end
+  end
+end

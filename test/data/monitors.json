@@ -1,0 +1,58 @@
+[
+  "200",
+  [
+    {
+      "created_at": 1440168271000,
+      "creator": {
+        "email": "sperson@rapid7.com",
+        "handle": "sperson@rapid7.com",
+        "id": 10000,
+        "name": "Some Person"
+      },
+      "id": 123456,
+      "message": "Some message",
+      "multi": false,
+      "name": "Monitor name",
+      "options": {
+        "no_data_timeframe": 2,
+        "notify_audit": false,
+        "notify_no_data": false,
+        "renotify_interval": 0,
+        "silenced": {},
+        "timeout_h": 0
+      },
+      "org_id": 12345,
+      "overall_state": "OK",
+      "query": "Some query",
+      "tags": [],
+      "type": "event alert"
+    },
+    {
+      "created_at": 1436300628000,
+      "creator": {
+        "email": "sperson@rapid7.com",
+        "handle": "sperson@rapid7.com",
+        "id": 10000,
+        "name": "Some Person"
+      },
+      "id": 234567,
+      "message": "Some message",
+      "multi": false,
+      "name": "Second monitor name",
+      "options": {
+        "escalation_message": "Oh noes!",
+        "no_data_timeframe": 2,
+        "notify_audit": true,
+        "notify_no_data": true,
+        "renotify_interval": 10,
+        "silenced": {},
+        "timeout_h": 1
+      },
+      "org_id": 12345,
+      "overall_state": "OK",
+      "query": "avg(last_1m):avg:system.cpu.user{region:us-east-1} > 20",
+      "tags": [],
+      "type": "metric alert"
+    }
+  ]
+]

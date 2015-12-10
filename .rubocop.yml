@@ -1,0 +1,24 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Include:
+    - lib/**/*
+    - bin/**/*
+    - test/**/*
+    - Gemfile
+    - Rakefile
+    - Thorfile
+  Exclude:
+    - example/**/*
+    - test/data/*
+
+Encoding:
+ Enabled: false
+RescueModifier:
+ Enabled: false
+HashSyntax:
+ Enabled: false
+SpaceInsideStringInterpolation:
+  Enabled: false
+DoubleNegation:
+  Enabled: false

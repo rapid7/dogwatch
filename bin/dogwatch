@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+require 'thor'
+require 'dogwatch/dogfile'
+
+module DogWatch
+  ##
+  # DogWatch CLI
+  ##
+  class CLI < Thor
+    class_option :dogfile, :type => :string, :default => 'Dogfile'
+    class_option :api_key, :type => :string, :default => nil
+    class_option :app_key, :type => :string, :default => nil
+    def initialize(*args)
+      super
+      @cwd = Dir.getwd
+      @dogfile = DogWatch::DogFile.new
+    end
+
+    desc 'create', 'Create a monitor from a Dogfile'
+    def create
+      @dogfile.configure(File.absolute_path(options['dogfile'], @cwd),
+                         options['api_key'], options['app_key'])
+      @dogfile.create { |c| say_status(*c.to_thor) }
+    end
+  end
+end
+
+DogWatch::CLI.start(ARGV)
