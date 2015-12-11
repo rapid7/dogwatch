@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require 'thor'
-require 'dogwatch/dogfile'
+require 'dogwatch'
 
 module DogWatch
   ##

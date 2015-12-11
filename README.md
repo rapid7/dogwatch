@@ -32,8 +32,6 @@ DogWatch is a thin DSL over the [DataDog ruby client](https://github.com/DataDog
 
 The following is an example of a `Dogfile`:
 ```ruby
-require 'dogwatch'
-
 DogWatch.monitor do
   ## Create a new monitor - monitor name is REQUIRED
   monitor 'MONITOR NAME' do
