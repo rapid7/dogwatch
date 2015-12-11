@@ -11,3 +11,4 @@ end
 
 require_relative 'dogwatch/version'
 require_relative 'dogwatch/monitor'
+require_relative 'dogwatch/dogfile'

@@ -1,5 +1,7 @@
-require_relative '../lib/dogwatch'
-
+# Sample Dogfile
+# See DataDog's documentation for information on arguments.
+# http://docs.datadoghq.com/api/#monitors
+#
 DogWatch.monitor do
   monitor 'test_alert' do
     type :metric_alert
