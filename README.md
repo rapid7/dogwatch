@@ -38,7 +38,7 @@ DogWatch.monitor do
   ## Create a new monitor - monitor name is REQUIRED
   monitor 'MONITOR NAME' do
     type :metric_alert # REQUIRED: One of [:metric_alert | :service_check | :event_alert]
-    query 'QUERY' # REQUIRED
+    query 'time_aggr(time_window):space_aggr:metric{tags} [by {key}] operator' # REQUIRED
     message 'MESSAGE'
     tags %w(A list of tags to associate with your monitor)
 
@@ -53,6 +53,18 @@ DogWatch.monitor do
     end
   end
 end
+```
+Queries are the combination of several items including a time aggregator (over a window of time), space aggregator (avg, sum, min, or max), a set of tags and an optional order by, and an operator.
+
+From the Datadog documentation:
+
+```
+time_aggr(time_window):space_aggr:metric{tags} [by {key}] operator 
+```
+An example of a query:
+
+```
+avg(last_15m):avg:system.disk.used{region:us-east-1,some-tag:some-tag-value,device:/dev/xvdb} by {cluster} * 100 > 55
 ```
 
 Monitors that already exist are matched by name and updated accordingly. If the name isn't matched exactly, DogWatch assumes you want a new monitor.
