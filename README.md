@@ -26,6 +26,8 @@ $ gem install dogwatch
 Generate both an api key and an app key and either place them in a file named `~/.dogwatch/credentials` or pass them via the command line.
 
 A sample credentials file is provided in the `example` directory.
+
+In order to generate these keys, log into your Datadog account.  From there, click on 'Integrations->APIs'.  Keep in mind, your org may be allowed only five API Keys.
 ## Usage
 
 DogWatch is a thin DSL over the [DataDog ruby client](https://github.com/DataDog/dogapi-rb) that handles generating DataDog monitors.
