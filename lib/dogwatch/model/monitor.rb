@@ -8,6 +8,7 @@ module DogWatch
     ##
     class Monitor
       TYPE_MAP = {
+        composite: 'composite',
         metric_alert: 'metric alert',
         service_check: 'service check',
         event_alert: 'event alert'
