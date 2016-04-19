@@ -18,6 +18,6 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(/^(test|spec|features)\//)
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'dogapi', '~> 1.21'
+  spec.add_runtime_dependency 'dogapi', '~> 1.22'
   spec.add_runtime_dependency 'thor', '~> 0.19'
 end

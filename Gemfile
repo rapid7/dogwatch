@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in convection.gemspec
+# Specify your gem's dependencies in dogwatch.gemspec
 gemspec
 
 group :development do
