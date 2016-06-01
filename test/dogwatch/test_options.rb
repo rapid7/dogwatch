@@ -78,4 +78,25 @@ class TestOptions < Minitest::Test
     assert_equal OPTS, @options.render
     assert_kind_of Hash, @options.render
   end
+
+  def test_invalid_monitor_type_specific_option
+    @options = DogWatch::Model::Options.new(:event_alert)
+
+    assert_raises NotImplementedError do
+      @options.thresholds('critical' => 90, 'warning' => 80)
+    end
+  end
+
+  def test_valid_monitor_type_specific_option
+    @options = DogWatch::Model::Options.new(:metric_alert)
+
+    @options.thresholds('critical' => 90, 'warning' => 80)
+
+    actual = @options.attributes.thresholds
+    assert_includes actual, 'critical'
+    assert_equal actual['critical'], 90
+
+    assert_includes actual, 'warning'
+    assert_equal actual['warning'], 80
+  end
 end

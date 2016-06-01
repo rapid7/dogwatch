@@ -6,10 +6,19 @@ module DogWatch
     # Handles the options block methods
     ##
     class Options
+      MONITOR_TYPE_OPTIONS_MAP = {
+        :metric_alert => [:thresholds].freeze,
+        :service_check => [:thresholds].freeze
+      }.freeze
+
       attr_reader :attributes
 
-      def initialize
+      # @param [Symbol] monitor_type the monitor type of monitor these
+      #   options belong to. This is used to validate monitor type
+      #   specific options such as thresholds.
+      def initialize(monitor_type = nil)
         @attributes = OpenStruct.new
+        @monitor_type = monitor_type
       end
 
       def render
@@ -54,6 +63,24 @@ module DogWatch
       # @param [Boolean] include
       def include_tags(include = true)
         @attributes.include_tags = !!include
+      end
+
+      # @param [Hash{String=>Fixnum}] thresholds
+      def thresholds(thresholds)
+        validate_monitor_type_specific_option!(:thresholds)
+        @attributes.thresholds = thresholds
+      end
+
+      private
+
+      def validate_monitor_type_specific_option!(option)
+        options = Array(MONITOR_TYPE_OPTIONS_MAP[@monitor_type])
+        return true if options.include?(option)
+
+        # rubocop:disable Metrics/LineLength
+        message = "The #{@monitor_type.inspect} monitor type does not support #{option.inspect}."
+        message << " Did you mean one of #{options.join(', ')}?" if options.any?
+        raise NotImplementedError, message
       end
     end
   end
