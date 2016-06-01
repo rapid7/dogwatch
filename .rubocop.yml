@@ -11,6 +11,7 @@ AllCops:
   Exclude:
     - example/**/*
     - test/data/*
+  TargetRubyVersion: 2.2
 
 Encoding:
  Enabled: false

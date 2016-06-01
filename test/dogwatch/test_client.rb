@@ -13,7 +13,7 @@ class TestClient < Minitest::Test
       type: 'metric alert',
       query: 'test query'
     ]
-  ]
+  ].freeze
 
   UPDATED_RESPONSE = [
     '200',
@@ -22,7 +22,7 @@ class TestClient < Minitest::Test
       type: :metric_alert,
       query: 'scheduled maintenance query'
     ]
-  ]
+  ].freeze
 
   def setup
     config = DogWatch::Model::Config.new('foo', 'bar')

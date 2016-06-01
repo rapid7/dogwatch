@@ -8,14 +8,13 @@ module DogWatch
     class Response
       extend Mixin::Colorize
 
-      ERROR = '400'
-      CREATED = '200'
-      ACCEPTED = '202'
+      ERROR = '400'.freeze
+      CREATED = '200'.freeze
+      ACCEPTED = '202'.freeze
       colorize(:action,
                :green => [:created, :accepted, :updated],
                :yellow => [],
-               :red => [:error]
-              )
+               :red => [:error])
 
       attr_accessor :response
 
