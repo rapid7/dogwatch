@@ -11,7 +11,7 @@ module DogWatch
         metric_alert: 'metric alert',
         service_check: 'service check',
         event_alert: 'event alert'
-      }
+      }.freeze
 
       attr_reader :name
       attr_reader :attributes

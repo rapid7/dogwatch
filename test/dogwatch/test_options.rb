@@ -11,7 +11,7 @@ class TestOptions < Minitest::Test
     escalation_message: 'foobar',
     notify_audit: true,
     include_tags: false
-  }
+  }.freeze
 
   # rubocop:disable Metrics/AbcSize
   def setup
