@@ -26,6 +26,7 @@ module DogWatch
       # @param [Symbol] type
       # @return [String]
       def type(type)
+        @monitor_type = type
         @attributes.type = TYPE_MAP[type]
       end
 
@@ -50,7 +51,7 @@ module DogWatch
       # @param [Proc] block
       # @return [Hash]
       def options(&block)
-        opts = DogWatch::Model::Options.new
+        opts = DogWatch::Model::Options.new(@monitor_type)
         opts.instance_eval(&block)
         @attributes.options = opts.render
       end
