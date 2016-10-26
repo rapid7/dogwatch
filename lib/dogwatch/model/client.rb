@@ -37,7 +37,7 @@ module DogWatch
 
         existing_monitor = get_monitor(monitor.name)
         response = @client.delete_monitor(existing_monitor['id'])
-        @response = DogWatch::Model::Response.new(response).tap { |r| r.deleted! }
+        @response = DogWatch::Model::Response.new(response)
       end
 
       # @param [DogWatch::Model::Monitor] monitor

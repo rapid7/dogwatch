@@ -23,12 +23,8 @@ module DogWatch
         @updated = updated
       end
 
-      def deleted!
-        @deleted = true
-      end
-
       def status
-        return :deleted if @deleted == true
+        return :deleted if deleted?
         return :updated if @updated == true
         return :created if created?
         return :error if failed?
@@ -58,6 +54,10 @@ module DogWatch
 
       def created?
         @response[0] == CREATED ? true : false
+      end
+
+      def deleted?
+        @response[1].key?('deleted_monitor_id')
       end
 
       def failed?
