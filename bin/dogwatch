@@ -32,6 +32,7 @@ module DogWatch
       @dogfile.configure(File.absolute_path(options['dogfile'], @cwd),
                          options['api_key'], options['app_key'])
       @dogfile.delete(monitor_filters) { |response| say_status(*response.to_thor) }
+      say_status(:delete_complete, 'Remember to delete monitors from your Dogfile after running this command unless you intend to keep them.', :yellow)
     end
 
     no_commands do
