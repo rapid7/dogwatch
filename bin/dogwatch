@@ -46,10 +46,10 @@ module DogWatch
       def validate_delete_options!
         return true if options[:monitor_names].any?
         if options[:all]
-          answer = ask('Are you sure you want to delete the specified monitor(s)?', limited_to: %w(yes no))
+          answer = ask('Are you sure you want to delete ALL monitor(s)?', limited_to: %w(yes no))
           exit unless answer.eql?('yes')
 
-          say_status('aborted', 'Aborted deletion of the specified monitor(s).', :green)
+          say_status('aborted', 'Aborted deletion of ALL monitor(s).', :green)
           return true
         end
 
