@@ -41,9 +41,9 @@ module DogWatch
       end
 
       def to_thor
-        action = status
+        @action = status # set @action for the colorize mixin to resolve when calling color
         text = message
-        [action, text, color]
+        [@action, text, color]
       end
 
       private
