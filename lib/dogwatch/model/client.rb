@@ -30,7 +30,10 @@ module DogWatch
 
       # @todo Should we raise an exception if the monitor did not exist?
       def delete(monitor)
-        fail ArgumentError, "Monitor #{monitor.name.inspect} does not exist." unless monitor_exists?(monitor.name)
+        unless monitor_exists?(monitor.name)
+          @response = DogWatch::Model::Response.new(['400', { 'errors' => ['The DogWatch monitor does not exist remotely to delete.'] }])
+          return @response
+        end
 
         existing_monitor = get_monitor(monitor.name)
         response = @client.delete_monitor(existing_monitor['id'])
