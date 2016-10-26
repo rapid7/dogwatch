@@ -22,6 +22,35 @@ module DogWatch
                          options['api_key'], options['app_key'])
       @dogfile.create { |c| say_status(*c.to_thor) }
     end
+
+    desc 'delete', 'Delete a monitor from a Dogfile'
+    method_option :all, default: false, desc: 'Whether to delete all monitors defined in the Dogfile', type: :boolean
+    def delete
+      validate_delete_options!
+
+      dogfile.delete { |response| say_status(*response.to_thor) }
+    end
+
+    no_commands do
+      private
+
+      def dogfile
+        @dogfile ||= load_dogfile
+      end
+
+      def load_dogfile
+        DogWatch::DogFile.new.tap do |dogfile|
+          src = File.absolute_path(options['dogfile'], Dir.getwd)
+          dogfile.configure(src, options['api_key'], options['app_key'])
+        end
+      end
+
+      def validate_delete_options!
+        return true if options[:all]
+
+        fail ArgumentError, "You must specify --all to delete monitors.\n\nSee command help for more information."
+      end
+    end
   end
 end
 

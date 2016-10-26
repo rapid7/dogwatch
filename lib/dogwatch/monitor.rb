@@ -30,6 +30,20 @@ module DogWatch
     end
 
     # @return [Array]
+    def delete
+      @responses = @monitors.map do |m|
+        if m.validate
+          @client.delete(m)
+        else
+          # Need somewhere to inject local errors such as if the request
+          # was never sent because the type or query wasn't supplied.
+          res = ['400', { 'errors' => ['The DogWatch monitor is invalid.'] }]
+          DogWatch::Model::Response.new(res)
+        end
+      end
+    end
+
+    # @return [Array]
     def get
       @responses = @monitors.map do |m|
         if m.validate

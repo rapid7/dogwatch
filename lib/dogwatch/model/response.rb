@@ -13,7 +13,7 @@ module DogWatch
       ACCEPTED = '202'.freeze
       colorize(:action,
                :green => [:created, :accepted, :updated],
-               :yellow => [],
+               :yellow => [:deleted],
                :red => [:error])
 
       attr_accessor :response
@@ -23,7 +23,12 @@ module DogWatch
         @updated = updated
       end
 
+      def deleted!
+        @deleted = true
+      end
+
       def status
+        return :deleted if @deleted == true
         return :updated if @updated == true
         return :created if created?
         return :error if failed?
@@ -33,7 +38,9 @@ module DogWatch
       def message
         attrs = @response[1]
         return attrs['errors'] if attrs.key?('errors')
-        "#{status.to_s.capitalize} monitor #{attrs['name']}"\
+        name = attrs.key?('deleted_monitor_id') ? "(id was: #{attrs['deleted_monitor_id']})" : attrs['name']
+
+        "#{status.to_s.capitalize} monitor #{name}"\
         " with message #{attrs['message']}"
       end
 
