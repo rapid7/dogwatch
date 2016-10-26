@@ -30,8 +30,9 @@ module DogWatch
     end
 
     # @return [Array]
-    def delete
-      @responses = @monitors.map do |m|
+    def delete(filters)
+      monitors = @monitors.select { |m| included_by_filters?(m, filters) }
+      @responses = monitors.map do |m|
         if m.validate
           @client.delete(m)
         else
@@ -60,6 +61,16 @@ module DogWatch
     # @return [DogWatch::Model::Client]
     def client(client = nil)
       @client = client.nil? ? DogWatch::Model::Client.new(@config) : client
+    end
+
+    private
+
+    def included_by_filters?(monitor, filters)
+      return true if filters.empty?
+
+      return false if filters.key?(:monitor_names) && !filters[:monitor_names].include?(monitor.name)
+
+      true # default to true - any known filters must have passed validation.
     end
   end
 end
