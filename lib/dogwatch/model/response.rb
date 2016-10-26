@@ -13,7 +13,7 @@ module DogWatch
       ACCEPTED = '202'.freeze
       colorize(:action,
                :green => [:created, :accepted, :updated],
-               :yellow => [],
+               :yellow => [:deleted],
                :red => [:error])
 
       attr_accessor :response
@@ -24,6 +24,7 @@ module DogWatch
       end
 
       def status
+        return :deleted if deleted?
         return :updated if @updated == true
         return :created if created?
         return :error if failed?
@@ -33,14 +34,16 @@ module DogWatch
       def message
         attrs = @response[1]
         return attrs['errors'] if attrs.key?('errors')
-        "#{status.to_s.capitalize} monitor #{attrs['name']}"\
+        name = attrs.key?('deleted_monitor_id') ? "(id was: #{attrs['deleted_monitor_id']})" : attrs['name']
+
+        "#{status.to_s.capitalize} monitor #{name}"\
         " with message #{attrs['message']}"
       end
 
       def to_thor
-        action = status
+        @action = status # set @action for the colorize mixin to resolve when calling color
         text = message
-        [action, text, color]
+        [@action, text, color]
       end
 
       private
@@ -51,6 +54,10 @@ module DogWatch
 
       def created?
         @response[0] == CREATED ? true : false
+      end
+
+      def deleted?
+        @response[1].key?('deleted_monitor_id')
       end
 
       def failed?

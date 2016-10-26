@@ -23,5 +23,15 @@ module DogWatch
       monitor.get
       monitor.responses.each { |r| block.call(r) }
     end
+
+    # @param [Proc] block
+    def delete(filters, &block)
+      monitor = instance_eval(IO.read(@dogfile), @dogfile, 1)
+      monitor.config = @config
+      monitor.client
+
+      monitor.delete(filters)
+      monitor.responses.each { |r| block.call(r) }
+    end
   end
 end
