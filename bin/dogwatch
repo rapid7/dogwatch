@@ -40,7 +40,7 @@ module DogWatch
       def monitor_filters
         {
           monitor_names: options[:monitor_names]
-        }.reject { |_, value| value.nil? }
+        }.reject { |_, value| Array(value).empty? }
       end
 
       def validate_delete_options!
