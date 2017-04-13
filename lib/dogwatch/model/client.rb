@@ -59,7 +59,7 @@ module DogWatch
           name: monitor.name,
           message: monitor.attributes.message,
           tags: monitor.attributes.tags,
-          options: monitor.attributes.options
+          options: monitor.attributes.options.nil? ? {} : monitor.attributes.options
         }
       end
 
