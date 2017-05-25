@@ -10,6 +10,7 @@ module DogWatch
     class_option :dogfile, :type => :string, :default => 'Dogfile'
     class_option :api_key, :type => :string, :default => nil
     class_option :app_key, :type => :string, :default => nil
+    class_option :timeout, :type => :numeric, :default => 5
     def initialize(*args)
       super
       @cwd = Dir.getwd
@@ -19,7 +20,8 @@ module DogWatch
     desc 'create', 'Create a monitor from a Dogfile'
     def create
       @dogfile.configure(File.absolute_path(options['dogfile'], @cwd),
-                         options['api_key'], options['app_key'])
+                         options['api_key'], options['app_key'],
+                         options['timeout'])
       @dogfile.create { |c| say_status(*c.to_thor) }
     end
   end

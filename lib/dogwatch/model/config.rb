@@ -9,12 +9,15 @@ module DogWatch
     class Config
       attr_accessor :api_key
       attr_accessor :app_key
+      attr_accessor :timeout
 
       # @param [String] api_key
       # @param [String] app_key
-      def initialize(api_key = nil, app_key = nil)
+      # @param [Integer] timeout
+      def initialize(api_key = nil, app_key = nil, timeout = 5)
         @api_key = api_key unless api_key.nil?
         @app_key = app_key unless app_key.nil?
+        @timeout = timeout
         return unless app_key.nil? || api_key.nil?
 
         from_file

@@ -9,9 +9,10 @@ module DogWatch
     # @param [String] dogfile
     # @param [String|Object] api_key
     # @param [String|Object] app_key
-    def configure(dogfile, api_key = nil, app_key = nil)
+    # @param [Integer] timeout
+    def configure(dogfile, api_key, app_key, timeout)
       @dogfile = dogfile
-      @config = DogWatch::Model::Config.new(api_key, app_key)
+      @config = DogWatch::Model::Config.new(api_key, app_key, timeout)
     end
 
     # @param [Proc] block
