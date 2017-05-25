@@ -11,6 +11,7 @@ module DogWatch
       ERROR = '400'.freeze
       CREATED = '200'.freeze
       ACCEPTED = '202'.freeze
+
       colorize(:action,
                :green => [:created, :accepted, :updated],
                :yellow => [],
@@ -18,6 +19,10 @@ module DogWatch
 
       attr_accessor :response
 
+      # @param [Array] response
+      # @param [String] name
+      # @param [TrueClass|FalseClass] updated
+      # @return [DogWatch::Model::Response]
       def initialize(response, name, updated = false)
         @response = response
         @updated = updated
@@ -28,6 +33,7 @@ module DogWatch
                 end
       end
 
+      # @return [Symbol]
       def status
         return :updated if @updated == true
         return :created if created?
@@ -35,10 +41,12 @@ module DogWatch
         return :accepted if accepted?
       end
 
+      # @return [String]
       def message
         send(status, @response[1])
       end
 
+      # @return [Array]
       def to_thor
         action = status
         text = message

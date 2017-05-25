@@ -21,6 +21,7 @@ module DogWatch
         @monitor_type = monitor_type
       end
 
+      # @return [Hash]
       def render
         @attributes.each_pair.to_h
       end

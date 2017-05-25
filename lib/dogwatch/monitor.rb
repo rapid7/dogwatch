@@ -43,7 +43,11 @@ module DogWatch
 
     # @return [DogWatch::Model::Client]
     def client(client = nil)
-      @client = client.nil? ? DogWatch::Model::Client.new(@config) : client
+      @client = if client.nil?
+                  DogWatch::Model::Client.new(@config)
+                else
+                  client
+                end
     end
   end
 end
