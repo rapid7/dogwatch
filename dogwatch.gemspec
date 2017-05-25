@@ -20,6 +20,6 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.2'
 
-  spec.add_runtime_dependency 'dogapi', '~> 1.21'
+  spec.add_runtime_dependency 'dogapi', '~> 1.27'
   spec.add_runtime_dependency 'thor', '~> 0.19'
 end

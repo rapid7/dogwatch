@@ -8,20 +8,20 @@ require 'json'
 class TestClient < Minitest::Test
   TEST_RESPONSE = [
     '200',
-    [
+    {
       name: 'test monitor',
       type: 'metric alert',
       query: 'test query'
-    ]
+    }
   ].freeze
 
   UPDATED_RESPONSE = [
     '200',
-    [
+    {
       name: 'Monitor name',
       type: :metric_alert,
       query: 'scheduled maintenance query'
-    ]
+    }
   ].freeze
 
   def setup
@@ -48,8 +48,8 @@ class TestClient < Minitest::Test
     new_monitor.query('test query')
 
     @client.client.stub :monitor, TEST_RESPONSE do
-      @client.execute(new_monitor)
-      assert_equal @client.response.status, :created
+      response = @client.execute(new_monitor)
+      assert_equal response.status, :created
     end
   end
 
@@ -59,8 +59,8 @@ class TestClient < Minitest::Test
     update_monitor.query('scheduled maintenance query')
 
     @client.client.stub :update_monitor, UPDATED_RESPONSE do
-      @client.execute(update_monitor)
-      assert_equal @client.response.status, :updated
+      response = @client.execute(update_monitor)
+      assert_equal response.status, :updated
     end
   end
 end

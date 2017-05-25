@@ -3,9 +3,9 @@ require_relative '../../lib/dogwatch/model/response'
 
 class TestResponse < MiniTest::Test
   def setup
-    @error_res = DogWatch::Model::Response.new(ERROR_RES)
-    @valid_res = DogWatch::Model::Response.new(VALID_RES)
-    @accepted_res = DogWatch::Model::Response.new(ACCEPTED_RES)
+    @error_res = DogWatch::Model::Response.new(ERROR_RES, 'error')
+    @valid_res = DogWatch::Model::Response.new(VALID_RES, 'foobar')
+    @accepted_res = DogWatch::Model::Response.new(ACCEPTED_RES, 'foobar')
   end
 
   def test_status_is_error
@@ -17,7 +17,8 @@ class TestResponse < MiniTest::Test
   end
 
   def test_status_message
-    assert_equal ["The value provided for parameter 'query' is invalid"], \
+    assert_equal 'The following errors occurred when creating monitor error: ' \
+      "The value provided for parameter 'query' is invalid", \
                  @error_res.message
   end
 

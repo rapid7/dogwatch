@@ -11,6 +11,7 @@ module DogWatch
       ERROR = '400'.freeze
       CREATED = '200'.freeze
       ACCEPTED = '202'.freeze
+
       colorize(:action,
                :green => [:created, :accepted, :updated],
                :yellow => [],
@@ -18,11 +19,21 @@ module DogWatch
 
       attr_accessor :response
 
-      def initialize(response, updated = false)
+      # @param [Array] response
+      # @param [String] name
+      # @param [Boolean] updated
+      # @return [DogWatch::Model::Response]
+      def initialize(response, name, updated = false)
         @response = response
         @updated = updated
+        @name = if response[1]['name'].nil?
+                  name
+                else
+                  response[1]['name']
+                end
       end
 
+      # @return [Symbol]
       def status
         return :updated if @updated == true
         return :created if created?
@@ -30,13 +41,12 @@ module DogWatch
         return :accepted if accepted?
       end
 
+      # @return [String]
       def message
-        attrs = @response[1]
-        return attrs['errors'] if attrs.key?('errors')
-        "#{status.to_s.capitalize} monitor #{attrs['name']}"\
-        " with message #{attrs['message']}"
+        send(status, @response[1])
       end
 
+      # @return [Array]
       def to_thor
         action = status
         text = message
@@ -45,16 +55,35 @@ module DogWatch
 
       private
 
+      def error(attrs)
+        err = attrs['errors'].join(', ')
+        "The following errors occurred when creating monitor #{@name}: #{err}"
+      end
+
+      def created(attrs)
+        "Created monitor #{@name} with message #{attrs['message']}"
+      end
+
+      def updated(attrs)
+        # TODO: Use some kind of statefile to determine diffs between
+        # previously saved model and new version
+        "Updated monitor #{@name} with message #{attrs['message']}"
+      end
+
+      def accepted(attrs)
+        "Accepted monitor #{@name} with message #{attrs['message']}"
+      end
+
       def accepted?
-        @response[0] == ACCEPTED ? true : false
+        @response[0] == ACCEPTED
       end
 
       def created?
-        @response[0] == CREATED ? true : false
+        @response[0] == CREATED
       end
 
       def failed?
-        @response[0] == ERROR ? true : false
+        @response[0] == ERROR
       end
     end
   end

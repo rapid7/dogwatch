@@ -5,6 +5,9 @@ module DogWatch
       # Provides a colorize() mixin that handles shell output coloring
       ##
       module Colorize
+        # @param [Symbol] param
+        # @param [Hash] options
+        # @return [Symbol]
         def colorize(param, options = {})
           define_method(:color) do
             case instance_variable_get("@#{ param }")

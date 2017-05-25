@@ -32,20 +32,22 @@ module DogWatch
     # @return [Array]
     def get
       @responses = @monitors.map do |m|
-        if m.validate
-          @client.execute(m)
+        validate = @client.validate(m)
+        if validate.status == :error
+          validate
         else
-          # Need somewhere to inject local errors such as if the request
-          # was never sent because the type or query wasn't supplied.
-          res = ['400', { 'errors' => ['The DogWatch monitor is invalid.'] }]
-          DogWatch::Model::Response.new(res)
+          @client.execute(m)
         end
       end
     end
 
     # @return [DogWatch::Model::Client]
     def client(client = nil)
-      @client = client.nil? ? DogWatch::Model::Client.new(@config) : client
+      @client = if client.nil?
+                  DogWatch::Model::Client.new(@config)
+                else
+                  client
+                end
     end
   end
 end
