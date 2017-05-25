@@ -56,13 +56,44 @@ module DogWatch
         @attributes.options = opts.render
       end
 
-      # @return [TrueClass|FalseClass]
+      # @return [DogWatch::Model::Response]
       def validate
-        return false unless TYPE_MAP.value?(@attributes.type)
-        return true unless @attributes.type.nil? || @attributes.type.empty? ||
-                           @attributes.query.nil? || @attributes.query.empty?
+        return DogWatch::Model::Response.new(invalid_type_response, 'invalid') \
+          unless TYPE_MAP.key?(@monitor_type)
 
-        false
+        errors = []
+        errors.push('Missing monitor type') if missing_type?
+        errors.push('Missing monitor query') if missing_query?
+
+        if errors.empty?
+          DogWatch::Model::Response.new(['200', { :message => 'valid' }], 'valid')
+        else
+          DogWatch::Model::Response.new(['400', { 'errors' => errors }], 'invalid')
+        end
+      end
+
+      private
+
+      def valid_types
+        TYPE_MAP.keys.map { |k| ":#{k}" }.join(', ')
+      end
+
+      def missing_type?
+        @attributes.type.nil? || @attributes.type.empty?
+      end
+
+      def missing_query?
+        @attributes.query.nil? || @attributes.query.empty?
+      end
+
+      def invalid_type_response
+        [
+          '400',
+          { 'errors' => [
+            "Monitor type '#{@monitor_type}' is not valid. " \
+            "Valid monitor types are: #{valid_types}"
+          ] }
+        ]
       end
     end
   end

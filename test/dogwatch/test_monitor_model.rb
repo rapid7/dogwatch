@@ -45,9 +45,16 @@ class TestMonitorModel < Minitest::Test
   end
 
   def test_validate
-    assert_equal true, @monitor.validate
+    validation = @monitor.validate
+    assert_kind_of DogWatch::Model::Response, validation
+    assert_equal :created, validation.status
 
     @monitor.attributes.query = nil
-    assert_equal false, @monitor.validate
+
+    failed_validation = @monitor.validate
+    assert_kind_of DogWatch::Model::Response, failed_validation
+    assert_equal :error, failed_validation.status
+    assert_equal 'The following errors occurred when creating monitor ' \
+      'invalid: Missing monitor query', failed_validation.message
   end
 end
