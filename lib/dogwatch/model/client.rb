@@ -20,6 +20,7 @@ module DogWatch
       end
 
       # @param [DogWatch::Model::Monitor] monitor
+      # @return [DogWatch::Model::Response]
       def execute(monitor)
         if monitor_exists?(monitor.name)
           update_monitor(monitor)
@@ -37,7 +38,7 @@ module DogWatch
                                           monitor.attributes.query,
                                           options)
         updated = %w(200 202).include?(response[0])
-        @response = DogWatch::Model::Response.new(response, options[:name], updated)
+        DogWatch::Model::Response.new(response, options[:name], updated)
       end
 
       # @param [DogWatch::Model::Monitor] monitor
@@ -47,7 +48,7 @@ module DogWatch
         response = @client.monitor(monitor.attributes.type,
                                    monitor.attributes.query,
                                    options)
-        @response = DogWatch::Model::Response.new(response, options[:name])
+        DogWatch::Model::Response.new(response, options[:name])
       end
 
       # @param [Dogwatch::Model::Monitor] monitor
