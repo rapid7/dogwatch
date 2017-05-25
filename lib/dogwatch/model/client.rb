@@ -15,7 +15,8 @@ module DogWatch
       # @param [DogWatch::Model::Config] config
       def initialize(config)
         @config = config
-        @client = Dogapi::Client.new(@config.api_key, @config.app_key)
+        @client = Dogapi::Client.new(@config.api_key, @config.app_key,
+                                     nil, nil, true, @config.timeout)
         @all_monitors = all_monitors
       end
 
