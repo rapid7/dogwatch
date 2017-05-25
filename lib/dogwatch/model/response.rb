@@ -21,7 +21,7 @@ module DogWatch
 
       # @param [Array] response
       # @param [String] name
-      # @param [TrueClass|FalseClass] updated
+      # @param [Boolean] updated
       # @return [DogWatch::Model::Response]
       def initialize(response, name, updated = false)
         @response = response
