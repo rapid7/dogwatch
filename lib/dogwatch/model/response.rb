@@ -36,10 +36,7 @@ module DogWatch
       end
 
       def message
-        attrs = @response[1]
-        return attrs['errors'] if attrs.key?('errors')
-        "#{status.to_s.capitalize} monitor #{attrs['name']}"\
-        " with message #{attrs['message']}"
+        send(status, @response[1])
       end
 
       def to_thor
@@ -50,16 +47,35 @@ module DogWatch
 
       private
 
+      def error(attrs)
+        err = attrs['errors'].join(', ')
+        "The following errors occurred when creating monitor #{@name}: #{err}"
+      end
+
+      def created(attrs)
+        "Created monitor #{@name} with message #{attrs['message']}"
+      end
+
+      def updated(attrs)
+        # TODO: Use some kind of statefile to determine diffs between
+        # previously saved model and new version
+        "Updated monitor #{@name} with message #{attrs['message']}"
+      end
+
+      def accepted(attrs)
+        "Accepted monitor #{@name} with message #{attrs['message']}"
+      end
+
       def accepted?
-        @response[0] == ACCEPTED ? true : false
+        @response[0] == ACCEPTED
       end
 
       def created?
-        @response[0] == CREATED ? true : false
+        @response[0] == CREATED
       end
 
       def failed?
-        @response[0] == ERROR ? true : false
+        @response[0] == ERROR
       end
     end
   end

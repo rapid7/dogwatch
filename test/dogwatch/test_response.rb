@@ -17,7 +17,8 @@ class TestResponse < MiniTest::Test
   end
 
   def test_status_message
-    assert_equal ["The value provided for parameter 'query' is invalid"], \
+    assert_equal 'The following errors occurred when creating monitor error: ' \
+      "The value provided for parameter 'query' is invalid", \
                  @error_res.message
   end
 
