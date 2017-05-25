@@ -3,9 +3,9 @@ require_relative '../../lib/dogwatch/model/response'
 
 class TestResponse < MiniTest::Test
   def setup
-    @error_res = DogWatch::Model::Response.new(ERROR_RES)
-    @valid_res = DogWatch::Model::Response.new(VALID_RES)
-    @accepted_res = DogWatch::Model::Response.new(ACCEPTED_RES)
+    @error_res = DogWatch::Model::Response.new(ERROR_RES, 'error')
+    @valid_res = DogWatch::Model::Response.new(VALID_RES, 'foobar')
+    @accepted_res = DogWatch::Model::Response.new(ACCEPTED_RES, 'foobar')
   end
 
   def test_status_is_error

@@ -18,9 +18,14 @@ module DogWatch
 
       attr_accessor :response
 
-      def initialize(response, updated = false)
+      def initialize(response, name, updated = false)
         @response = response
         @updated = updated
+        @name = if response[1]['name'].nil?
+                  name
+                else
+                  response[1]['name']
+                end
       end
 
       def status

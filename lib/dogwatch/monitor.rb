@@ -38,7 +38,7 @@ module DogWatch
           # Need somewhere to inject local errors such as if the request
           # was never sent because the type or query wasn't supplied.
           res = ['400', { 'errors' => ['The DogWatch monitor is invalid.'] }]
-          DogWatch::Model::Response.new(res)
+          DogWatch::Model::Response.new(res, 'error')
         end
       end
     end
