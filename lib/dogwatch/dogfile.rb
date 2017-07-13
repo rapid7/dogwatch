@@ -21,10 +21,10 @@ module DogWatch
 
       if monitor.is_a?(DogWatch::Monitor)
         monitor.config = @config
-        # monitor.client
+        monitor.client
 
-        # monitor.get
-        # monitor.responses.each { |r| block.call(r) }
+        monitor.get
+        monitor.responses.each { |r| block.call(r) }
       else
         klass = Class.new do
           def to_thor
