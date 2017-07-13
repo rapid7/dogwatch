@@ -13,7 +13,6 @@ class TestOptions < Minitest::Test
     include_tags: false
   }.freeze
 
-  # rubocop:disable Metrics/AbcSize
   def setup
     @options = DogWatch::Model::Options.new
 

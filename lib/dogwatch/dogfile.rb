@@ -18,11 +18,22 @@ module DogWatch
     # @param [Proc] block
     def create(&block)
       monitor = instance_eval(IO.read(@dogfile), @dogfile, 1)
-      monitor.config = @config
-      monitor.client
 
-      monitor.get
-      monitor.responses.each { |r| block.call(r) }
+      if monitor.is_a?(DogWatch::Monitor)
+        monitor.config = @config
+        monitor.client
+
+        monitor.get
+        monitor.responses.each { |r| block.call(r) }
+      else
+        klass = Class.new do
+          def to_thor
+            [:none, 'File does not contain any monitors.', :yellow]
+          end
+        end
+
+        block.call(klass.new)
+      end
     end
   end
 end
