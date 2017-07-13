@@ -11,6 +11,7 @@ module DogWatch
     class_option :api_key, :type => :string, :default => nil
     class_option :app_key, :type => :string, :default => nil
     class_option :timeout, :type => :numeric, :default => 5
+    class_option :verbose, :type => :boolean, :default => false
     def initialize(*args)
       super
       @cwd = Dir.getwd
@@ -22,7 +23,12 @@ module DogWatch
       @dogfile.configure(File.absolute_path(options['dogfile'], @cwd),
                          options['api_key'], options['app_key'],
                          options['timeout'])
-      @dogfile.create { |c| say_status(*c.to_thor) }
+      @dogfile.create do |c|
+        results = c.to_thor
+        next if results.first == :none && options['verbose'] == false
+
+        say_status(*results)
+      end
     end
   end
 end
