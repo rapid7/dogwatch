@@ -47,6 +47,7 @@ DogWatch.monitor do
       notify_no_data false
       no_data_timeframe 3
       timeout_h 99
+      evaluation_delay 120
       renotify_interval 60
       escalation_message 'oh snap'
       include_tags true
@@ -59,7 +60,7 @@ Queries are the combination of several items including a time aggregator (over a
 From the Datadog documentation:
 
 ```
-time_aggr(time_window):space_aggr:metric{tags} [by {key}] operator 
+time_aggr(time_window):space_aggr:metric{tags} [by {key}] operator
 ```
 An example of a query:
 
