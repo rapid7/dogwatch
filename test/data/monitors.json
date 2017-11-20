@@ -19,7 +19,8 @@
         "notify_no_data": false,
         "renotify_interval": 0,
         "silenced": {},
-        "timeout_h": 0
+        "timeout_h": 0,
+        "evaluation_delay": 120
       },
       "org_id": 12345,
       "overall_state": "OK",
@@ -46,7 +47,8 @@
         "notify_no_data": true,
         "renotify_interval": 10,
         "silenced": {},
-        "timeout_h": 1
+        "timeout_h": 1,
+        "evaluation_delay": 120
       },
       "org_id": 12345,
       "overall_state": "OK",

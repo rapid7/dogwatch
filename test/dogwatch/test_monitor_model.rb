@@ -34,10 +34,12 @@ class TestMonitorModel < Minitest::Test
     @monitor.options do
       notify_no_data false
       no_data_timeframe 3
+      evaluation_delay 120
     end
     expected = {
       notify_no_data: false,
-      no_data_timeframe: 3
+      no_data_timeframe: 3,
+      evaluation_delay: 120
     }
 
     assert_equal expected, @monitor.attributes.options

@@ -51,6 +51,11 @@ module DogWatch
         @attributes.renotify_interval = minutes.to_i
       end
 
+      # @param [Integer] minutes
+      def evaluation_delay(minutes)
+        @attributes.evaluation_delay = minutes.to_i
+      end
+
       # @param [String] message
       def escalation_message(message)
         @attributes.escalation_message = message.to_s
