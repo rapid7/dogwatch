@@ -80,10 +80,10 @@ class TestOptions < Minitest::Test
     assert_equal @options.attributes.include_tags, true
   end
 
-  # def test_render
-  #   assert_equal OPTS, @options.render
-  #   assert_kind_of Hash, @options.render
-  # end
+  def test_render
+    assert_equal OPTS, @options.render
+    assert_kind_of Hash, @options.render
+  end
 
   def test_invalid_monitor_type_specific_option
     @options = DogWatch::Model::Options.new(:event_alert)
