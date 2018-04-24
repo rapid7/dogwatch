@@ -30,6 +30,16 @@ module DogWatch
         say_status(*results)
       end
     end
+
+    desc 'create', 'Create a monitor from a Dogfile'
+    def export
+      @dogfile.configure(File.absolute_path(options['dogfile'], @cwd),
+                         options['api_key'], options['app_key'],
+                         options['timeout'])
+      @dogfile.export do |c|
+        print c
+      end
+    end
   end
 end
 

@@ -49,5 +49,15 @@ module DogWatch
                   client
                 end
     end
+
+    def variable_ize(str)
+      str.gsub('eu-central-1', '${var.region}')
+          .gsub('razor-prod-0', '${var.stack}')
+    end
+
+    # Expose private binding() method.
+    def get_binding
+      binding()
+    end
   end
 end
