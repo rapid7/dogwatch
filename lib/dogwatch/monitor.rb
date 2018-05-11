@@ -29,6 +29,11 @@ module DogWatch
       @monitors << monitor
     end
 
+    def monitors()
+      @monitors
+    end
+
+
     # @return [Array]
     def get
       @responses = @monitors.map do |m|
