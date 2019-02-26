@@ -11,4 +11,5 @@ group :development do
   gem 'rubocop', '~> 0.34'
   gem 'simplecov'
   gem 'thor-scmversion', '= 1.7.0'
+  gem 'rhcl'
 end

@@ -30,6 +30,14 @@ module DogWatch
         say_status(*results)
       end
     end
+
+    desc 'to_terraform', 'Create terraform from a dogfile'
+    def to_terraform
+      @dogfile.configure(File.absolute_path(options['dogfile'], @cwd),
+                         options['api_key'], options['app_key'],
+                         options['timeout'])
+      @dogfile.to_terraform
+    end
   end
 end
 
