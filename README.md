@@ -1,8 +1,8 @@
 # DogWatch
 
-_A DSL to create DataDog monitors_
+_A DSL to create Datadog monitors_
 
-This gem is designed to provide a simple method for creating DataDog monitors in Ruby.
+This gem is designed to provide a simple method for creating Datadog monitors in Ruby.
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -21,7 +21,7 @@ $ gem install dogwatch
 ```
 
 ## Credentials
-[DataDog API credentials](https://app.datadoghq.com/account/settings#api) are required.
+[Datadog API credentials](https://app.datadoghq.com/account/settings#api) are required.
 
 Generate both an api key and an app key and either place them in a file named `~/.dogwatch/credentials` or pass them via the command line.
 
@@ -30,7 +30,7 @@ A sample credentials file is provided in the `example` directory.
 In order to generate these keys, log into your Datadog account.  From there, click on 'Integrations->APIs'.  Keep in mind, your org may be allowed only five API Keys.
 ## Usage
 
-DogWatch is a thin DSL over the [DataDog ruby client](https://github.com/DataDog/dogapi-rb) that handles generating DataDog monitors.
+DogWatch is a thin DSL over the [Datadog ruby client](https://github.com/DataDog/dogapi-rb) that handles generating Datadog monitors.
 
 The following is an example of a `Dogfile`:
 ```ruby
@@ -72,7 +72,7 @@ Monitors that already exist are matched by name and updated accordingly. If the 
 
 A sample `Dogfile` is provided in the `example` directory.
 
-For a full list of options and a description of each parameter, see [DataDog's API documentation](http://docs.datadoghq.com/api/#monitors).
+For a full list of options and a description of each parameter, see [Datadog's API documentation](http://docs.datadoghq.com/api/#monitors).
 
 ## TO DO
 * More descriptive errors
