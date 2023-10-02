@@ -1,0 +1,15 @@
+---
+info:
+  title: Dogwatch
+  description: A Ruby DSL to create DataDog monitors.
+  x-cortex-git:
+    github:
+      alias: r7org
+      repository: rapid7/dogwatch
+  x-cortex-tag: dogwatch
+  x-cortex-type: service
+  x-cortex-domain-parents:
+  - tag: platform-delivery
+openapi: 3.0.1
+servers:
+- url: "/"
